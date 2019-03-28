@@ -197,6 +197,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b214f137e3db1904cb260afce1e0b463, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  y_rotation_intensity: 3
+  x_rotation_intensity: 1
   backgroundImage: {fileID: 257659272}
   TrackedJoint: 3
   OverlayObject: {fileID: 1794978001}
