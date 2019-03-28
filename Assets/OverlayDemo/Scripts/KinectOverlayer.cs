@@ -81,7 +81,28 @@ public class KinectOverlayer : MonoBehaviour
 						{
 							Vector3 vPosOverlay = Camera.main.ViewportToWorldPoint(new Vector3(scaleX, scaleY, distanceToCamera));
                             OverlayObject.transform.position = Vector3.Lerp(OverlayObject.transform.position, vPosOverlay, smoothFactor * Time.deltaTime);
-                            OverlayObject.transform.rotation = Quaternion.Euler(new Vector3(OverlayObject.transform.position.y * 3.0f, OverlayObject.transform.position.x * 1.0f, 0));
+                            //Vector3 ballPos = new Vector3();
+                            //ballPos.Set(OverlayObject.transform.position.x, OverlayObject.transform.position.y, OverlayObject.transform.position.z);
+                            float y = OverlayObject.transform.position.y;
+                            float x = OverlayObject.transform.position.x;
+                            if (OverlayObject.transform.position.y < 1.0f)
+                            {
+                                y = 1.0f;
+                            }
+                            /*
+                            
+                            if(x < -5.0f)
+                            {
+                                x = -5.0f;
+                            }
+                            else if(x > 5.0f)
+                            {
+                                x = 5.0f;
+                            }
+                            */
+                            OverlayObject.transform.position = new Vector3(x, y, OverlayObject.transform.position.z);
+                            OverlayObject.transform.rotation = Quaternion.Euler(new Vector3(OverlayObject.transform.position.y * 3.0f, OverlayObject.transform.position.x * -3.0f, 0));
+                            //OverlayObject.transform.rotation = Quaternion.Euler(new Vector3(ballPos.y * 3.0f, ballPos.x * -3.0f, 0));
 
                             //camPos.position = Vector3.Lerp(OverlayObject.transform.position, vPosOverlay, smoothFactor * Time.deltaTime);
                         }
