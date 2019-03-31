@@ -5,12 +5,13 @@ public class KinectOverlayer : MonoBehaviour
 {
     public float y_rotation_intensity = 3.0f;
     public float x_rotation_intensity = 1.0f;
+    public float y_translation_intensity = 1.0f;
+    public float x_translation_intensity = 0.75f;
 
 
     public GUITexture backgroundImage;
 	public KinectWrapper.NuiSkeletonPositionIndex TrackedJoint = KinectWrapper.NuiSkeletonPositionIndex.Head;
 	public GameObject OverlayObject;
-    public float smoothFactor = 25f;//5f;
 	
 	public GUIText debugText;
 
@@ -83,6 +84,7 @@ public class KinectOverlayer : MonoBehaviour
                             OverlayObject.transform.position = Vector3.Lerp(OverlayObject.transform.position, vPosOverlay, 1.0f);
                             float y = OverlayObject.transform.position.y;
                             float x = OverlayObject.transform.position.x;
+                            /*
                             if (OverlayObject.transform.position.y < 2.0f)
                             {
                                 y = 2.0f;
@@ -96,12 +98,14 @@ public class KinectOverlayer : MonoBehaviour
                             {
                                 x = 5.0f;
                             }
+                            */
+                            Vector3 pos = new Vector3((x - prevTrans.x) * x_translation_intensity, (y - prevTrans.y) * y_translation_intensity, 0f);
+                            ////////////////cam.transform.position = Vector3.Lerp(prevTrans, pos, 1.0f);
+                            //OverlayObject.transform.position = new Vector3(x - prevTrans.x, y - prevTrans.y, OverlayObject.transform.position.z);
+                            cam.transform.Translate(pos);
+                            prevTrans = OverlayObject.transform.position;
 
-                            OverlayObject.transform.position = new Vector3(x, y, OverlayObject.transform.position.z);
-                            //OverlayObject.transform.Translate((x - prevTrans.x) * 2, (y - prevTrans.y) * 2, 0);
-                            //prevTrans = OverlayObject.transform.position;
-
-                            OverlayObject.transform.rotation = Quaternion.Euler(new Vector3(OverlayObject.transform.position.y * y_rotation_intensity, -OverlayObject.transform.position.x * x_rotation_intensity, 0));
+                            cam.transform.rotation = Quaternion.Euler(new Vector3(OverlayObject.transform.position.y * y_rotation_intensity, -OverlayObject.transform.position.x * x_rotation_intensity, 0));
 
                             //OverlayObject.transform.rotation = Quaternion.Euler(new Vector3(OverlayObject.transform.position.y * y_rotation_intensity, -OverlayObject.transform.position.x * x_rotation_intensity, 0));
                             //Vector3 rot = new Vector3((OverlayObject.transform.position.y - prevRot.y) * y_rotation_intensity, (-OverlayObject.transform.position.x + -prevRot.x) * x_rotation_intensity, 0);
